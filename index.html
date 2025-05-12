@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Starry Sums</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #ffe6f0;
+      font-family: 'Pixelify Sans', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .game-container {
+      background: #fff0f5;
+      border: 3px dashed #ff69b4;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #ff1493;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #800080;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 2px solid #ffb6c1;
+      outline: none;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #ff69b4;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #008000;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>🎀 Starry Sums 🎀</h1>
+    <div class="question" id="question">What is 1 + 1?</div>
+    <input type="number" id="answer" placeholder="type your answer"/>
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <!-- Suara klik tombol -->
+  <audio id="click-sound" src="click-sound.wav" preload="auto"></audio>
+
+  <script>
+    let num1, num2;
+
+    function generateQuestion() {
+      num1 = Math.floor(Math.random() * 10) + 1;
+      num2 = Math.floor(Math.random() * 10) + 1;
+      document.getElementById("question").textContent = `what is ${num1} + ${num2}?`;
+      document.getElementById("result").textContent = "";
+      document.getElementById("answer").value = "";
+    }
+
+    function checkAnswer() {
+      document.getElementById("click-sound").play();
+
+      const userAnswer = parseInt(document.getElementById("answer").value);
+      const result = document.getElementById("result");
+      if (userAnswer === num1 + num2) {
+        result.textContent = "🎉 yay! you got it right!";
+        result.style.color = "#32CD32";
+      } else {
+        result.textContent = "😢 oops! try again!";
+        result.style.color = "#FF0000";
+      }
+      setTimeout(generateQuestion, 2000);
+    }
+
+    generateQuestion();
+  </script>
+</body>
+</html>
